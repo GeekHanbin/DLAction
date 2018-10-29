@@ -15,7 +15,7 @@ tf.flags.DEFINE_boolean('use_embedding', False, 'whether to use embedding')
 tf.flags.DEFINE_integer('embedding_size', 128, 'size of embedding')
 tf.flags.DEFINE_float('learning_rate', 0.001, 'learning_rate')
 tf.flags.DEFINE_float('train_keep_prob', 0.5, 'dropout rate during training')
-tf.flags.DEFINE_string('input_file', 'model/poetry', 'utf8 encoded text file')
+tf.flags.DEFINE_string('input_file', '', 'utf8 encoded text file')
 tf.flags.DEFINE_integer('max_steps', 100000, 'max steps to train')
 tf.flags.DEFINE_integer('save_every_n', 1000, 'save the model every n steps')
 tf.flags.DEFINE_integer('log_every_n', 10, 'log to the screen every n steps')
@@ -24,9 +24,10 @@ tf.flags.DEFINE_integer('max_vocab', 3500, 'max char number')
 
 def main(_):
     model_path = os.path.join('model', FLAGS.name)
+    print(model_path)
     if os.path.exists(model_path) is False:
         os.makedirs(model_path)
-    # print(FLAGS.input_file)
+    print(os.path.join('data', FLAGS.input_file))
     with codecs.open(FLAGS.input_file, encoding='utf-8') as f:
         text = f.read()
     converter = TextConverter(text, FLAGS.max_vocab)
